@@ -1,3 +1,8 @@
+## Auth0
+
+- [Auth0 Dashboard](https://manage.auth0.com/dashboard/)
+- [Quickstart](https://auth0.com/docs/quickstart/webapp/aspnet-core-blazor-server)
+
 - __Step 1: Get the SVG Code__
 
   Find the icon you want (e.g., on Bootstrap Icons) and copy the SVG HTML.
@@ -19,7 +24,7 @@
   }
   ```
 
-- __Step 3: Update `NavMenu.razor`__
+- __Step 4: Update `NavMenu.razor`__
 
   Apply your new class to a `NavLink` inside the `NavMenu.razor` file:
 

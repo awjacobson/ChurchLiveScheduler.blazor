@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Auth0.AspNetCore.Authentication" Version="1.7.0" />
     <PackageReference Include="AWJ.ChurchLiveSchedulerSdk" Version="1.0.8" />
   </ItemGroup>
 

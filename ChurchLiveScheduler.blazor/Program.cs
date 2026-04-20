@@ -1,9 +1,18 @@
+using Auth0.AspNetCore.Authentication;
 using ChurchLiveScheduler.blazor.Components;
 using ChurchLiveScheduler.sdk;
 using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add Auth0 authentication
+builder.Services.AddAuth0WebAppAuthentication(options =>
+{
+    options.Domain = builder.Configuration["Auth0:Domain"];
+    options.ClientId = builder.Configuration["Auth0:ClientId"];
+    options.ClientSecret = builder.Configuration["Auth0:ClientSecret"];
+});
 
 builder.Services.AddOptions<ChurchLiveSchedulerSettings>()
     .BindConfiguration("ChurchLiveScheduler")
@@ -13,6 +22,12 @@ builder.Services.AddOptions<ChurchLiveSchedulerSettings>()
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// Add cascading authentication state
+builder.Services.AddCascadingAuthenticationState();
+
+// Add Razor Pages for authentication endpoints
+builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<IChurchLiveSchedulerClient>(sp =>
 {
@@ -34,9 +49,15 @@ app.UseHttpsRedirection();
 
 app.UseAntiforgery();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+// Map Razor Pages for authentication
+app.MapRazorPages();
 
 app.Run();
 

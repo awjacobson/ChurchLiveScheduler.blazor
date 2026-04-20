@@ -7,6 +7,16 @@
 
     <main>
         <div class="top-row px-4">
+            <AuthorizeView>
+                <NotAuthorized>
+                    <a href="/Login">Log in</a>
+                </NotAuthorized>
+                <Authorized>
+                    <span>Hello, @context.User.Identity?.Name!</span>
+                    <a href="/Profile">Profile</a>
+                    <a href="/Logout">Log out</a>
+                </Authorized>
+            </AuthorizeView>
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
         </div>
 

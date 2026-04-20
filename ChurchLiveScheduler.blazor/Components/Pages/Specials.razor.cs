@@ -1,6 +1,7 @@
 ﻿using ChurchLiveScheduler.blazor.ViewModels;
 using ChurchLiveScheduler.sdk;
 using ChurchLiveScheduler.sdk.Models;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace ChurchLiveScheduler.blazor.Components.Pages;
@@ -10,7 +11,10 @@ public partial class Specials
     private readonly IChurchLiveSchedulerClient _churchLiveSchedulerClient;
     private readonly IJSRuntime _jsRuntime;
     public IReadOnlyList<Special>? SpecialsList { get; set; }
-    public Special SelectedSpecial { get; set; } = new();
+
+    [SupplyParameterFromForm]
+    public Special? SelectedSpecial { get; set; }
+
     public bool IsAdd => SelectedSpecial?.Id is null;
     public string OffCanvasTitle => IsAdd ? "Create Special" : "Edit Special";
 
@@ -22,6 +26,7 @@ public partial class Specials
 
     protected override async Task OnInitializedAsync()
     {
+        SelectedSpecial ??= new();
         SpecialsList = await GetSpecialsAsync();
         await base.OnInitializedAsync();
     }
